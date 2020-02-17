@@ -1532,6 +1532,21 @@ class GSFontMaster(GSBase):
         return super().shouldWriteValueForKey(key)
 
     @property
+    def axes(self) -> Tuple[Union[int, float], ...]:
+        axis_num = len(self.font.axes)
+        return tuple(
+            getattr(self, attr)
+            for attr in (
+                "weightValue",
+                "widthValue",
+                "customValue",
+                "customValue1",
+                "customValue2",
+                "customValue3",
+            )[:axis_num]
+        )
+
+    @property
     def name(self):
         name = self.customParameters["Master Name"]
         if name:
