@@ -1853,6 +1853,11 @@ class GSPath(GSBase):
         if not cycled:
             return []
 
+        def wrap(i):
+            if i >= len(nodes):
+                i = i % len(nodes)
+            return i
+
         while nodeCount < len(nodes):
             newSegment = segment()
             newSegment.parent = self
@@ -1865,8 +1870,8 @@ class GSPath(GSBase):
 
             if nodes[nodeCount].type == "offcurve":
                 newSegment.appendNode(nodes[nodeCount])
-                newSegment.appendNode(nodes[nodeCount + 1])
-                newSegment.appendNode(nodes[nodeCount + 2])
+                newSegment.appendNode(nodes[wrap(nodeCount + 1)])
+                newSegment.appendNode(nodes[wrap(nodeCount + 2)])
                 nodeCount += 3
             elif nodes[nodeCount].type == "line":
                 newSegment.appendNode(nodes[nodeCount])
