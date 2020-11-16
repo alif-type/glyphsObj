@@ -2774,6 +2774,21 @@ class GSInstance(GSBase):
     )
 
     @property
+    def axes(self) -> Tuple[Union[int, float], ...]:
+        axis_num = len(self.parent.axes)
+        return tuple(
+            getattr(self, attr)
+            for attr in (
+                "weightValue",
+                "widthValue",
+                "customValue",
+                "customValue1",
+                "customValue2",
+                "customValue3",
+            )[:axis_num]
+        )
+
+    @property
     def exports(self):
         """Deprecated alias for `active`, which is in the documentation."""
         return self.active
