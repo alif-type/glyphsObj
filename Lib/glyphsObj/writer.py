@@ -13,8 +13,8 @@
 # limitations under the License.
 
 
-import glyphsLib.classes
-from glyphsLib.types import floatToString5
+import glyphsObj.classes
+from glyphsObj.types import floatToString5
 import logging
 import datetime
 from collections import OrderedDict
@@ -120,12 +120,12 @@ class Writer:
             # We have to write color tuples on one line or Glyphs 2.4.x
             # misreads it.
             self.file.write(str(tuple(value)))
-        elif isinstance(value, (list, glyphsLib.classes.Proxy)):
-            if isinstance(value, glyphsLib.classes.UserDataProxy):
+        elif isinstance(value, (list, glyphsObj.classes.Proxy)):
+            if isinstance(value, glyphsObj.classes.UserDataProxy):
                 self.writeUserData(value)
             else:
                 self.writeArray(value)
-        elif isinstance(value, (dict, OrderedDict, glyphsLib.classes.GSBase)):
+        elif isinstance(value, (dict, OrderedDict, glyphsObj.classes.GSBase)):
             self.writeDict(value)
         elif type(value) == float:
             self.file.write(floatToString5(value))

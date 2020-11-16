@@ -20,7 +20,7 @@ import copy
 import unittest
 import pytest
 
-from glyphsLib.classes import (
+from glyphsObj.classes import (
     GSFont,
     GSFontMaster,
     GSInstance,
@@ -52,7 +52,7 @@ from glyphsLib.classes import (
     CURVE,
     OFFCURVE,
 )
-from glyphsLib.types import Point, Transform, Rect
+from glyphsObj.types import Point, Transform, Rect
 
 
 TESTFILE_PATH = os.path.join(
@@ -1734,8 +1734,8 @@ class GSCustomParameterTest(unittest.TestCase):
 
 
 class GSBackgroundLayerTest(unittest.TestCase):
-    """Goal: forbid in glyphsLib all the GSLayer.background APIs that don't
-    work in Glyphs.app, so that the code we write for glyphsLib is sure to
+    """Goal: forbid in glyphsObj all the GSLayer.background APIs that don't
+    work in Glyphs.app, so that the code we write for glyphsObj is sure to
     work in Glyphs.app
     """
 
@@ -1753,7 +1753,7 @@ class GSBackgroundLayerTest(unittest.TestCase):
 
     def test_set_GSLayer_background(self):
         """It should raise because it behaves strangely in Glyphs.app.
-        The only way to modify a background layer in glyphsLib is to get it
+        The only way to modify a background layer in glyphsObj is to get it
         from a GSLayer object.
         """
         with pytest.raises(AttributeError):

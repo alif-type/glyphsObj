@@ -14,4 +14,4 @@
 
 from setuptools import setup
 
-setup(use_scm_version={"write_to": "Lib/glyphsLib/_version.py"})
+setup(use_scm_version={"write_to": "Lib/glyphsObj/_version.py"})

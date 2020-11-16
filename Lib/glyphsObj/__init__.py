@@ -13,10 +13,23 @@
 # limitations under the License.
 
 
-import sys
+import logging
 
-import glyphsLib.cli
+from glyphsObj.classes import GSFont, __all__ as __all_classes__
+from glyphsObj.classes import *  # noqa
+from glyphsObj.parser import load, loads  # noqa
+from glyphsObj.writer import dump, dumps  # noqa
 
+try:
+    from ._version import version as __version__
+except ImportError:
+    __version__ = "0.0.0+unknown"
 
-if __name__ == "__main__":
-    sys.exit(glyphsLib.cli.main())
+__all__ = [
+    "load",
+    "loads",
+    "dump",
+    "dumps",
+] + __all_classes__
+
+logger = logging.getLogger(__name__)

@@ -17,7 +17,7 @@
 import datetime
 import unittest
 
-from glyphsLib.types import Transform, parse_datetime, parse_color
+from glyphsObj.types import Transform, parse_datetime, parse_color
 
 
 class GlyphsDateTimeTest(unittest.TestCase):

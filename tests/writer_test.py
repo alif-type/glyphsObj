@@ -19,10 +19,10 @@ from textwrap import dedent
 from collections import OrderedDict
 import os
 
-from glyphsLib import classes
-from glyphsLib.types import parse_datetime, Point, Rect
-from glyphsLib.writer import dump, dumps
-from glyphsLib.parser import Parser
+from glyphsObj import classes
+from glyphsObj.types import parse_datetime, Point, Rect
+from glyphsObj.writer import dump, dumps
+from glyphsObj.parser import Parser
 
 from . import test_helpers
 

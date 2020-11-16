@@ -17,11 +17,7 @@ import os
 import unittest
 import pytest
 
-import defcon
-import ufoLib2
-
-import glyphsLib
-from fontTools.designspaceLib import DesignSpaceDocument
+import glyphsObj
 import test_helpers
 
 
@@ -48,101 +44,27 @@ class GlyphsRT(unittest.TestCase, test_helpers.AssertParseWriteRoundtrip):
             setattr(cls, test_name, test_method)
 
 
-class GlyphsToDesignspaceRT(test_helpers.AssertUFORoundtrip):
-    """Test the whole chain from .glyphs to designspace + UFOs and back"""
-
-    @classmethod
-    def add_tests(cls, testable):
-        files = test_helpers.glyphs_files(directory(testable))
-        for index, filename in enumerate(sorted(files)):
-
-            def test_method(self, filename=filename):
-                with open(filename) as f:
-                    font = glyphsLib.load(f)
-                self.assertUFORoundtrip(font)
-
-            file_basename = os.path.basename(filename)
-            test_name = "test_n{:0>3d}_{}_v{}_{}".format(
-                index,
-                testable["name"],
-                test_helpers.app_version(filename),
-                file_basename.replace(r"[^a-zA-Z]", ""),
-            )
-            test_method.__name__ = test_name
-            setattr(cls, test_name, test_method)
-
-
-class GlyphsToDesignspaceRTUfoLib2(unittest.TestCase, GlyphsToDesignspaceRT):
-    ufo_module = ufoLib2
-
-
-class GlyphsToDesignspaceRTDefcon(unittest.TestCase, GlyphsToDesignspaceRT):
-    ufo_module = defcon
-
-
-class DesignspaceToGlyphsRT(test_helpers.AssertDesignspaceRoundtrip):
-    """Test the whole chain from designspace + UFOs to .glyphs and back"""
-
-    @classmethod
-    def add_tests(cls, testable):
-        files = test_helpers.designspace_files(directory(testable))
-        for index, filename in enumerate(sorted(files)):
-
-            def test_method(self, filename=filename):
-                doc = DesignSpaceDocument()
-                doc.read(filename)
-                self.assertDesignspaceRoundtrip(doc)
-
-            file_basename = os.path.basename(filename)
-            test_name = "test_n{:0>3d}_{}_{}".format(
-                index, testable["name"], file_basename.replace(r"[^a-zA-Z]", "")
-            )
-            test_method.__name__ = test_name
-            setattr(cls, test_name, test_method)
-            print("adding test", test_name)
-
-
-class DesignspaceToGlyphsRTUfoLib2(unittest.TestCase, DesignspaceToGlyphsRT):
-    ufo_module = ufoLib2
-
-
-class DesignspaceToGlyphsRTDefcon(unittest.TestCase, DesignspaceToGlyphsRT):
-    ufo_module = defcon
-
-
 TESTABLES = [
     # The following contain .glyphs files
     {
         "name": "noto_moyogo",  # dirname inside `downloaded/`
         "git_url": "https://github.com/moyogo/noto-source.git",
         "git_ref": "normalized-1071",
-        "classes": (
-            GlyphsRT,
-            GlyphsToDesignspaceRTUfoLib2,
-            GlyphsToDesignspaceRTDefcon,
-        ),
+        "classes": (GlyphsRT,),
     },
     {
         # https://github.com/googlefonts/glyphsLib/issues/238
         "name": "montserrat",
         "git_url": "https://github.com/JulietaUla/Montserrat",
         "git_ref": "master",
-        "classes": (
-            GlyphsRT,
-            GlyphsToDesignspaceRTUfoLib2,
-            GlyphsToDesignspaceRTDefcon,
-        ),
+        "classes": (GlyphsRT,),
     },
     {
         # https://github.com/googlefonts/glyphsLib/issues/282
         "name": "cantarell_madig",
         "git_url": "https://github.com/madig/cantarell-fonts/",
         "git_ref": "f17124d041e6ee370a9fcddcc084aa6cbf3d5500",
-        "classes": (
-            GlyphsRT,
-            GlyphsToDesignspaceRTUfoLib2,
-            GlyphsToDesignspaceRTDefcon,
-        ),
+        "classes": (GlyphsRT,),
     },
     # {
     #     # This one has truckloads of smart components
@@ -150,7 +72,7 @@ TESTABLES = [
     #     'git_url': 'https://github.com/phoikoi/VT323',
     #     'git_ref': 'master',
     #     'classes': (
-    #         GlyphsRT, GlyphsToDesignspaceRTUfoLib2, GlyphsToDesignspaceRTDefcon
+    #         GlyphsRT,
     #     ),
     # },
     {
@@ -158,24 +80,7 @@ TESTABLES = [
         "name": "vt323_jany",
         "git_url": "https://github.com/belluzj/VT323",
         "git_ref": "glyphs-1089",
-        "classes": (
-            GlyphsRT,
-            GlyphsToDesignspaceRTUfoLib2,
-            GlyphsToDesignspaceRTDefcon,
-        ),
-    },
-    # The following contain .designspace files
-    {
-        "name": "spectral",
-        "git_url": "https://github.com/productiontype/Spectral",
-        "git_ref": "master",
-        "classes": (DesignspaceToGlyphsRTUfoLib2, DesignspaceToGlyphsRTDefcon),
-    },
-    {
-        "name": "amstelvar",
-        "git_url": "https://github.com/TypeNetwork/fb-Amstelvar",
-        "git_ref": "master",
-        "classes": (DesignspaceToGlyphsRTUfoLib2, DesignspaceToGlyphsRTDefcon),
+        "classes": (GlyphsRT,),
     },
 ]
 

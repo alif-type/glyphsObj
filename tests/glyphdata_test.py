@@ -18,7 +18,7 @@ import os
 import unittest
 import xml.etree.ElementTree
 
-from glyphsLib.glyphdata import get_glyph
+from glyphsObj.glyphdata import get_glyph
 
 
 class GlyphDataTest(unittest.TestCase):
@@ -148,16 +148,16 @@ class GlyphDataTest(unittest.TestCase):
         self.assertEqual((u.unicode, g.unicode), ("07F0", "07F0"))
 
     def test_glyphdata_no_duplicates(self):
-        import glyphsLib
+        import glyphsObj
 
         names = set()
         alt_names = set()
         production_names = set()
 
         xml_files = [
-            os.path.join(os.path.dirname(glyphsLib.__file__), "data", "GlyphData.xml"),
+            os.path.join(os.path.dirname(glyphsObj.__file__), "data", "GlyphData.xml"),
             os.path.join(
-                os.path.dirname(glyphsLib.__file__), "data", "GlyphData_Ideographs.xml"
+                os.path.dirname(glyphsObj.__file__), "data", "GlyphData_Ideographs.xml"
             ),
         ]
 

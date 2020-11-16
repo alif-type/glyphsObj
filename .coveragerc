@@ -4,15 +4,15 @@
 branch = True
 
 # list of directories or packages to measure
-source = glyphsLib
+source = glyphsObj
 
 # these are treated as equivalent when combining data
 [paths]
 source =
-    Lib/glyphsLib
-    .tox/*/lib/python*/site-packages/glyphsLib
-    .tox/*/lib/site-packages/glyphsLib
-    .tox/pypy*/site-packages/glyphsLib
+    Obj/glyphsObj
+    .tox/*/lib/python*/site-packages/glyphsObj
+    .tox/*/lib/site-packages/glyphsObj
+    .tox/pypy*/site-packages/glyphsObj
 
 [report]
 # Regexes for lines to exclude from consideration

@@ -44,7 +44,7 @@ def parse_float_or_int(value_string):
 
 class ValueType:
     """A base class for value types that are comparable in the Python sense
-    and readable/writable using the glyphsLib parser/writer.
+    and readable/writable using the glyphsObj parser/writer.
     """
 
     default = None

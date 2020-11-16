@@ -101,8 +101,8 @@ def get_glyph(glyph_name, data=None):
                 from importlib_resources import open_binary
 
             GLYPHDATA = GlyphData.from_files(
-                open_binary("glyphsLib.data", "GlyphData.xml"),
-                open_binary("glyphsLib.data", "GlyphData_Ideographs.xml"),
+                open_binary("glyphsObj.data", "GlyphData.xml"),
+                open_binary("glyphsObj.data", "GlyphData_Ideographs.xml"),
             )
         data = GLYPHDATA
 

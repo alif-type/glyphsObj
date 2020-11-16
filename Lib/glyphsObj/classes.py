@@ -30,10 +30,10 @@ from fontTools.pens.pointPen import (
     SegmentToPointPen,
 )
 
-import glyphsLib
-from glyphsLib.affine import Affine
-from glyphsLib.parser import Parser
-from glyphsLib.types import (
+import glyphsObj
+from glyphsObj.affine import Affine
+from glyphsObj.parser import Parser
+from glyphsObj.types import (
     Point,
     Rect,
     Transform,
@@ -45,7 +45,7 @@ from glyphsLib.types import (
     parse_float_or_int,
     readIntlist,
 )
-from glyphsLib.writer import Writer
+from glyphsObj.writer import Writer
 
 logger = logging.getLogger(__name__)
 
@@ -306,7 +306,7 @@ class GSApplication:
         return newFont
 
     def __repr__(self):
-        return "<glyphsLib>"
+        return "<glyphsObj>"
 
 
 Glyphs = GSApplication()
@@ -370,7 +370,7 @@ class GSBase:
         value = getattr(self, getKey)
         klass = self._classesForName[key]
         default = self._defaultsForName.get(key, None)
-        if isinstance(value, (list, glyphsLib.classes.Proxy, str)) and len(value) == 0:
+        if isinstance(value, (list, glyphsObj.classes.Proxy, str)) and len(value) == 0:
             return False
         if default is not None:
             return default != value
@@ -3254,7 +3254,7 @@ class GSLayer(GSBase):
             return Rect(Point(left, bottom), Point(right - left, top - bottom))
 
     def _find_node_by_indices(self, point):
-        """"Find the GSNode that is refered to by the given indices.
+        """Find the GSNode that is refered to by the given indices.
 
         See GSNode::_indices()
         """

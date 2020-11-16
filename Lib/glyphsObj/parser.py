@@ -19,10 +19,15 @@ import re
 import logging
 import sys
 
-from glyphsLib.util import tostr
-import glyphsLib
+import glyphsObj
 
 logger = logging.getLogger(__name__)
+
+
+def tostr(s):
+    if not isinstance(s, str):
+        return s.decode("utf-8", "strict")
+    return s
 
 
 class Parser:
@@ -47,7 +52,7 @@ class Parser:
     def parse(self, text):
         """Do the parsing."""
 
-        text = tostr(text, encoding="utf-8")
+        text = tostr(text)
         result, i = self._parse(text, 0)
         if text[i:].strip():
             self._fail("Unexpected trailing content", text, i)
@@ -56,7 +61,7 @@ class Parser:
     def parse_into_object(self, res, text):
         """Parse data into an existing GSFont instance."""
 
-        text = tostr(text, encoding="utf-8")
+        text = tostr(text)
 
         m = self.start_dict_re.match(text, 0)
         if m:
@@ -128,7 +133,7 @@ class Parser:
 
         m = self.hex_re.match(text, i)
         if m:
-            from glyphsLib.types import BinaryData
+            from glyphsObj.types import BinaryData
 
             parsed, value = m.group(0), m.group(1)
             decoded = BinaryData.fromHex(value)
@@ -247,7 +252,7 @@ def loads(s):
     a UTF-8 encoded bytes object.
     Return a GSFont object.
     """
-    p = Parser(current_type=glyphsLib.classes.GSFont)
+    p = Parser(current_type=glyphsObj.classes.GSFont)
     logger.info("Parsing .glyphs file")
     data = p.parse(s)
     return data
@@ -256,7 +261,7 @@ def loads(s):
 def main(args=None):
     """Roundtrip the .glyphs file given as an argument."""
     for arg in args:
-        glyphsLib.dump(load(open(arg, "r", encoding="utf-8")), sys.stdout)
+        glyphsObj.dump(load(open(arg, "r", encoding="utf-8")), sys.stdout)
 
 
 if __name__ == "__main__":

@@ -19,9 +19,9 @@ from collections import OrderedDict
 import unittest
 import datetime
 
-import glyphsLib
-from glyphsLib.parser import Parser
-from glyphsLib.classes import GSGlyph
+import glyphsObj
+from glyphsObj.parser import Parser
+from glyphsObj.classes import GSGlyph
 
 GLYPH_DATA = """\
 (
@@ -75,7 +75,7 @@ class ParserTest(unittest.TestCase):
         # unquoted comma-separated list of unicodes is not valid plist;
         # it used to be written by some old versions of Glyphs.app but
         # the current version always writes multiple unicodes within quotes.
-        # Thus, we no longer support this in glyphsLib either.
+        # Thus, we no longer support this in glyphsObj either.
         with self.assertRaises(ValueError):
             self.run_test(
                 b"{unicode = 0000,0008,001D;}", [("unicode", "0000,0008,001D")]
@@ -94,7 +94,7 @@ class ParserTest(unittest.TestCase):
         self.run_test(b"{mystr = NaN;}", [("mystr", "NaN")])
 
     def test_dont_crash_on_string_that_looks_like_a_dict(self):
-        # https://github.com/googlefonts/glyphsLib/issues/238
+        # https://github.com/googlefonts/glyphsObj/issues/238
         self.run_test(b'{UUID0 = "{0.5, 0.5}";}', [("UUID0", "{0.5, 0.5}")])
 
     def test_parse_dict_in_dict(self):
@@ -162,7 +162,7 @@ class ParserGlyphTest(unittest.TestCase):
     def test_IntFloatCoordinates(self):
         filename = os.path.join(os.path.dirname(__file__), "data/IntegerFloat.glyphs")
         with open(filename) as f:
-            font = glyphsLib.load(f)
+            font = glyphsObj.load(f)
 
         int_points_expected = [
             (True, True),
