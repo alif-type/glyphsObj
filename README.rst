@@ -13,7 +13,7 @@ Read and write Glyphs data as Python objects
     font = GSFont(glyphs_file)
     font.save(glyphs_file)
 
-The ``glyphsObj.classes`` module aims to provide an interface similar to
+The ``glyphsObj`` module aims to provide an interface similar to
 Glyphs.app's `Python Scripting API <https://docu.glyphsapp.com>`__.
 
 Note that currently not all the classes and methods may be fully
