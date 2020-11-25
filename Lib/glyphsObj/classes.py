@@ -19,7 +19,6 @@ import math
 import os
 import re
 import uuid
-from collections import OrderedDict
 from io import StringIO
 from typing import Any, Dict, List, Optional, Tuple, Union
 
@@ -834,7 +833,7 @@ class GlyphLayerProxy(Proxy):
         self.append(layer)
 
     def setter(self, values):
-        newLayers = OrderedDict()
+        newLayers = {}
         if type(values) == list or type(values) == tuple or type(values) == type(self):
             for layer in values:
                 newLayers[layer.layerId] = layer
@@ -3141,7 +3140,7 @@ class GSLayer(GSBase):
         # The "hasattr" is here because this setter is called by the GSBase
         # __init__() method before the parent property is set.
         if hasattr(self, "parent") and self.parent:
-            parent_layers = OrderedDict()
+            parent_layers = {}
             updated = False
             for id, layer in self.parent._layers.items():
                 if layer == self:
@@ -3457,7 +3456,7 @@ class GSGlyph(GSBase):
     )
 
     def __init__(self, name=None):
-        self._layers = OrderedDict()
+        self._layers = {}
         self._unicodes = []
         self.bottomKerningGroup = ""
         self.bottomMetricsKey = ""
@@ -3624,7 +3623,7 @@ class GSFont(GSBase):
         "gridSubDivision": int,
         "instances": GSInstance,
         "keepAlternatesTogether": bool,
-        "kerning": OrderedDict,
+        "kerning": dict,
         "keyboardIncrement": parse_float_or_int,
         "manufacturer": str,
         "manufacturerURL": str,
@@ -3650,7 +3649,7 @@ class GSFont(GSBase):
         "gridLength": 1,
         "gridSubDivision": 1,
         "unitsPerEm": 1000,
-        "kerning": OrderedDict(),
+        "kerning": {},
         "keyboardIncrement": 1,
     }
 

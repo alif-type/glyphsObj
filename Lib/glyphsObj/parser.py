@@ -13,7 +13,6 @@
 # limitations under the License.
 
 
-from collections import OrderedDict
 from io import open
 import re
 import logging
@@ -46,7 +45,7 @@ class Parser:
     hex_re = re.compile(r"\s*<([A-Fa-f0-9]+)>", re.DOTALL)
     bytes_re = re.compile(r"\s*<([A-Za-z0-9+/=]+)>", re.DOTALL)
 
-    def __init__(self, current_type=OrderedDict):
+    def __init__(self, current_type=dict):
         self.current_type = current_type
 
     def parse(self, text):
@@ -120,7 +119,7 @@ class Parser:
 
             value = self._trim_value(m.group(1))
 
-            if self.current_type in (None, dict, OrderedDict):
+            if self.current_type in (None, dict, dict):
                 self.current_type = self._guess_current_type(parsed, value)
 
             if self.current_type == bool:

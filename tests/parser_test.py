@@ -15,7 +15,6 @@
 
 
 import os
-from collections import OrderedDict
 import unittest
 import datetime
 
@@ -40,7 +39,7 @@ unicode = 0041;
 class ParserTest(unittest.TestCase):
     def run_test(self, text, expected):
         parser = Parser()
-        self.assertEqual(parser.parse(text), OrderedDict(expected))
+        self.assertEqual(parser.parse(text), dict(expected))
 
     def test_parse(self):
         self.run_test(
@@ -100,7 +99,7 @@ class ParserTest(unittest.TestCase):
     def test_parse_dict_in_dict(self):
         self.run_test(
             b'{outer = {inner = "turtles";};}',
-            [("outer", OrderedDict([("inner", "turtles")]))],
+            [("outer", dict([("inner", "turtles")]))],
         )
 
     def test_parse_hex_data(self):

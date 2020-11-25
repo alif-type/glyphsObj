@@ -17,7 +17,6 @@ import glyphsObj.classes
 from glyphsObj.types import floatToString5
 import logging
 import datetime
-from collections import OrderedDict
 from io import StringIO
 
 """
@@ -60,13 +59,13 @@ class Writer:
             keys = sorted(dictValue._classesForName.keys())
         else:
             keys = dictValue.keys()
-            if not isinstance(dictValue, OrderedDict):
+            if not isinstance(dictValue, dict):
                 keys = sorted(keys)
         for key in keys:
             if hasattr(dictValue, "_classesForName"):
                 forType = dictValue._classesForName[key]
             try:
-                if isinstance(dictValue, (dict, OrderedDict)):
+                if isinstance(dictValue, (dict, dict)):
                     value = dictValue[key]
                 else:
                     getKey = key
@@ -125,7 +124,7 @@ class Writer:
                 self.writeUserData(value)
             else:
                 self.writeArray(value)
-        elif isinstance(value, (dict, OrderedDict, glyphsObj.classes.GSBase)):
+        elif isinstance(value, (dict, dict, glyphsObj.classes.GSBase)):
             self.writeDict(value)
         elif type(value) == float:
             self.file.write(floatToString5(value))

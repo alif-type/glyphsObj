@@ -16,7 +16,6 @@
 import unittest
 from io import StringIO
 from textwrap import dedent
-from collections import OrderedDict
 import os
 
 from glyphsObj import classes
@@ -112,8 +111,8 @@ class WriterTest(unittest.TestCase, test_helpers.AssertLinesEqual):
         # note
         font.note = "Was bored, made this"
         # kerning
-        font.kerning = OrderedDict(
-            [("M1", OrderedDict([("@MMK_L_G1", OrderedDict([("@MMK_R_G1", 0.1)]))]))]
+        font.kerning = dict(
+            [("M1", dict([("@MMK_L_G1", dict([("@MMK_R_G1", 0.1)]))]))]
         )
         # userData
         font.userData = {
@@ -641,7 +640,7 @@ class WriterTest(unittest.TestCase, test_helpers.AssertLinesEqual):
         glyph.userData["rememberToMakeCoffe"] = True
         # Check that empty collections are written
         glyph.userData["com.someoneelse.coolsoftware.customdata"] = [
-            OrderedDict(
+            dict(
                 [("zero", 0), ("emptyList", []), ("emptyDict", {}), ("emptyString", "")]
             ),
             [],
