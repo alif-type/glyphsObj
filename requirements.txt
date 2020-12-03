@@ -4,5 +4,4 @@
 #
 #    pip-compile setup.py
 #
-fonttools[unicode]==4.14.0  # via glyphsObj (setup.py)
-unicodedata2==13.0.0.post2  # via fonttools
+fonttools[unicode]==4.17.1  # via glyphsObj (setup.py)
